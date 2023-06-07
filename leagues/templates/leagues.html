@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<!-- tile -->
+{% block title-content %}
+<title>Leagues Page</title>
+{% endblock %}
+
+<!-- body -->
+{% block html-content %}
+<h1>Leagues Results</h1>
+<div class="row">
+  {% for league in leagues %}
+  <div class="col">
+    <div class="card">
+      <img src="{{league.image}}" class="card-img-top" alt="{{ league.name }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ league.name }}</h5>
+        <a href="/leagues/{{ league.id }}" class="btn btn-primary">Ver</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+<!-- script -->
+{% block script-content %}{% endblock %}

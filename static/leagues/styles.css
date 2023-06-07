@@ -1,0 +1,33 @@
+#league-list li img {
+    width: 100px;
+}
+.clickable {
+    cursor: pointer;
+}
+.match-selected td {
+    background-color: #ff9292;
+    color: #ffffff;
+}
+.match-selected td.team-selected {
+    color: #14783db5;
+}
+
+header nav {
+    background-color: #545454 !important;
+}
+
+header nav a {
+    color: #ffffff !important;
+}
+
+.card {
+    width: 300px;
+}
+
+.card a {
+    display: block;
+}
+
+.max-number {
+    color: red !important;
+}

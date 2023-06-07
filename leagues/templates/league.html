@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+<!-- tile -->
+{% block title-content %}
+<title>League Page</title>
+{% endblock %}
+
+<!-- body -->
+{% block html-content %}
+<h1>{{ league }}</h1>
+<h2>Groups</h2>
+<div class="accordion" id="group-list">
+  {% for group in groups %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{group.index}}" aria-expanded="false" aria-controls="collapse-{{group.index}}">{{ group.name }}</button>
+    </h2>
+    <div id="collapse-{{group.index}}" class="accordion-collapse collapse" data-bs-parent="#group-list">
+      <div class="accordion-body">
+        <ul class="nav nav-tabs" id="myTab-{{group.index}}" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="results-tab-{{group.index}}" data-bs-toggle="tab" data-bs-target="#results-tab-{{group.index}}-pane" type="button" role="tab" aria-controls="results-tab-{{group.index}}-pane" aria-selected="true">Resultados</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="clasification-tab-{{group.index}}" data-bs-toggle="tab" data-bs-target="#clasification-tab-{{group.index}}-pane" type="button" role="tab" aria-controls="clasification-tab-{{group.index}}-pane" aria-selected="false">Clasificación</button>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTab-{{group.index}}-Content">
+          <div class="tab-pane fade show active" id="results-tab-{{group.index}}-pane" role="tabpanel" aria-labelledby="results-tab-{{group.index}}" tabindex="0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Week</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Home</th>
+                  <th scope="col">Away</th>
+                  <th scope="col">Results</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in group.table %}
+                <tr>
+                  <td>{{row.Week}}</td>
+                  <td>{{row.Date}}</td>
+                  <td class="clickable team-name">{{row.Home}}</td>
+                  <td class="clickable team-name">{{row.Away}}</td>
+                  <td>{{row.Results}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="clasification-tab-{{group.index}}-pane" role="tabpanel" aria-labelledby="clasification-tab-{{group.index}}" tabindex="0">
+            <div class="accordion-body">
+              <ul class="nav nav-tabs" id="myTab-{{group.index}}-clasification" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="clasification-team-tab-{{group.index}}" data-bs-toggle="tab" data-bs-target="#clasification-team-tab-{{group.index}}-pane" type="button" role="tab" aria-controls="clasification-team-tab-{{group.index}}-pane" aria-selected="true">Equipo</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="clasification-cricket-tab-{{group.index}}" data-bs-toggle="tab" data-bs-target="#clasification-cricket-tab-{{group.index}}-pane" type="button" role="tab" aria-controls="clasification-cricket-tab-{{group.index}}-pane" aria-selected="false">Cricket</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="clasification-cricket-tab-{{group.index}}" data-bs-toggle="tab" data-bs-target="#clasification-501-tab-{{group.index}}-pane" type="button" role="tab" aria-controls="clasification-501-tab-{{group.index}}-pane" aria-selected="false">501</button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTab-{{group.index}}-clasification-Content">
+                <div class="tab-pane fade show active" id="clasification-team-tab-{{group.index}}-pane" role="tabpanel" aria-labelledby="clasification-team-tab-{{group.index}}" tabindex="0">
+                  <table class="table table-team">
+                    <thead>
+                      <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">Win %</th>
+                        <th scope="col">Games</th>
+                        <th scope="col">Wins</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in group.teamRanking %}
+                      <tr>
+                        <td>{{row.index}}</td>
+                        <td class="clickable team-name">{{row.team}}</td>
+                        <td>{{row.win_rate}}</td>
+                        <td>{{row.matches}}</td>
+                        <td>{{row.wins}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="clasification-cricket-tab-{{group.index}}-pane" role="tabpanel" aria-labelledby="clasification-cricket-tab-{{group.index}}" tabindex="0">
+                  <table class="table table-cricket">
+                    <thead>
+                      <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">MPR</th>
+                        <th scope="col">Games</th>
+                        <th scope="col">Wins</th>
+                        <th scope="col">Assists</th>
+                        <th scope="col">Hats</th>
+                        <th scope="col">WHorse</th>
+                        <th scope="col">5MR</th>
+                        <th scope="col">6MR</th>
+                        <th scope="col">7MR</th>
+                        <th scope="col">8MR</th>
+                        <th scope="col">9MR</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in group.playerCricketRanking %}
+                      <tr>
+                        <td>{{row.index}}</td>
+                        <td>{{row.player}}</td>
+                        <td class="clickable team-name">{{row.team}}</td>
+                        <td>{{row.MPR}}</td>
+                        <td>{{row.Games}}</td>
+                        <td>{{row.Wins}}</td>
+                        <td>{{row.Assists}}</td>
+                        <td>{{row.Hats}}</td>
+                        <td>{{row.WHorse}}</td>
+                        <td>{{row.5MR}}</td>
+                        <td>{{row.6MR}}</td>
+                        <td>{{row.7MR}}</td>
+                        <td>{{row.8MR}}</td>
+                        <td>{{row.9MR}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tab-pane fade" id="clasification-501-tab-{{group.index}}-pane" role="tabpanel" aria-labelledby="clasification-501-tab-{{group.index}}" tabindex="0">
+                  <table class="table table-501">
+                    <thead>
+                      <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">Team</th>
+                        <th scope="col">PPD</th>
+                        <th scope="col">Games</th>
+                        <th scope="col">Wins</th>
+                        <th scope="col">Hats</th>
+                        <th scope="col">3BD</th>
+                        <th scope="col">Ton80</th>
+                        <th scope="col">HTon</th>
+                        <th scope="col">LTon</th>
+                        <th scope="col">6DO</th>
+                        <th scope="col">7DO</th>
+                        <th scope="col">8DO</th>
+                        <th scope="col">9DO</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in group.player501Ranking %}
+                      <tr>
+                        <td>{{row.index}}</td>
+                        <td>{{row.player}}</td>
+                        <td class="clickable team-name">{{row.team}}</td>
+                        <td>{{row.PPD}}</td>
+                        <td>{{row.Games}}</td>
+                        <td>{{row.Wins}}</td>
+                        <td>{{row.Hats}}</td>
+                        <td>{{row.3BD}}</td>
+                        <td>{{row.Ton80}}</td>
+                        <td>{{row.HTon}}</td>
+                        <td>{{row.LTon}}</td>
+                        <td>{{row.6DO}}</td>
+                        <td>{{row.7DO}}</td>
+                        <td>{{row.8DO}}</td>
+                        <td>{{row.9DO}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+<!-- script -->
+{% block script-content %}
+<script>
+  function highlightMaxNumber(tableClass, columnIdx) {
+    $(tableClass).each(function () {
+      var maxNumber = -Infinity;
+      var maxRowIdx = -1;
+
+      $(this)
+        .find('tr')
+        .each(function (rowIndex) {
+          var number = parseInt($(this).find('td').eq(columnIdx).text());
+
+          if (number > maxNumber) {
+            maxNumber = number;
+            maxRowIdx = rowIndex;
+          }
+        });
+
+      if (maxRowIdx !== -1) {
+        $(this).find('tr').eq(maxRowIdx).find('td').eq(columnIdx).addClass('max-number');
+      }
+    });
+  }
+  $(document).ready(function () {
+    $('.team-name').click(function () {
+      $('tr.match-selected').removeClass('match-selected');
+      $('td.team-selected').removeClass('team-selected');
+      var texto = $(this).text();
+      $("td:contains('" + texto + "')")
+        .filter(function () {
+          return $(this).text() === texto;
+        })
+        .parent()
+        .addClass('match-selected');
+      $("td:contains('" + texto + "')")
+        .filter(function () {
+          return $(this).text() === texto;
+        })
+        .addClass('team-selected');
+    });
+    highlightMaxNumber('.table-team', 2);
+    highlightMaxNumber('.table-team', 3);
+    highlightMaxNumber('.table-team', 4);
+    highlightMaxNumber('.table-cricket', 3);
+    highlightMaxNumber('.table-cricket', 4);
+    highlightMaxNumber('.table-cricket', 5);
+    highlightMaxNumber('.table-cricket', 6);
+    highlightMaxNumber('.table-cricket', 7);
+    highlightMaxNumber('.table-cricket', 8);
+    highlightMaxNumber('.table-cricket', 9);
+    highlightMaxNumber('.table-cricket', 10);
+    highlightMaxNumber('.table-cricket', 11);
+    highlightMaxNumber('.table-cricket', 12);
+    highlightMaxNumber('.table-cricket', 13);
+    highlightMaxNumber('.table-501', 3);
+    highlightMaxNumber('.table-501', 4);
+    highlightMaxNumber('.table-501', 5);
+    highlightMaxNumber('.table-501', 6);
+    highlightMaxNumber('.table-501', 7);
+    highlightMaxNumber('.table-501', 8);
+    highlightMaxNumber('.table-501', 9);
+    highlightMaxNumber('.table-501', 10);
+    highlightMaxNumber('.table-501', 11);
+    highlightMaxNumber('.table-501', 12);
+    highlightMaxNumber('.table-501', 13);
+    highlightMaxNumber('.table-501', 14);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block title-content %}{% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href='{% static "leagues/styles.css" %}' />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img
+              width="150"
+              height="50"
+              src="https://www.bullshooter.eu/wp-content/uploads/2022/09/cropped-cropped-logo-bullshooter-europe.png"
+              class="custom-logo"
+              alt="bullshooter europe logo"
+              decoding="async"
+              srcset="https://www.bullshooter.eu/wp-content/uploads/2022/09/cropped-cropped-logo-bullshooter-europe.png 469w, https://www.bullshooter.eu/wp-content/uploads/2022/09/cropped-cropped-logo-bullshooter-europe-300x91.png 300w"
+              sizes="(max-width: 469px) 100vw, 469px"
+            />
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/leagues">Leagues</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.bullshooter.eu/">Oficial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    {% block html-content %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+    {% block script-content %}{% endblock %}
+    <footer>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <p>© 2023 <a href="https://www.bullshooter.eu/">Bullshooter Europe</a> - Modified by <a href="https://www.linkedin.com/in/framaresp/">framaresp</a></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
