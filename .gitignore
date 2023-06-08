@@ -139,6 +139,3 @@ cython_debug/
 
 # Ignore venv
 myvenv/**/*
-
-# Ignore sqlite
-*.sqlite3
